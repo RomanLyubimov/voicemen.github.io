@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram WebApp</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // Автоматически инициализируем WebApp, и нажатие на кнопку WebApp в Telegram вызовет запрос разрешений.
+        window.addEventListener('DOMContentLoaded', () => {
+            // Telegram WebApp API инициализация
+            const tg = window.Telegram.WebApp;
+            
+            // Запрашиваем разрешение на уведомления
+            requestNotificationPermission();
+        });
+
+        // Функция для запроса разрешений на уведомления
+        function requestNotificationPermission() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(function(permission) {
+                    if (permission === 'granted') {
+                        alert('Разрешение на уведомления предоставлено!');
+                        // Отправляем данные в бота
+                        window.Telegram.WebApp.sendData("Notification permission granted");
+                    } else {
+                        alert('Вы отклонили запрос на уведомления.');
+                    }
+                });
+            } else {
+                alert('Ваш браузер не поддерживает уведомления.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Запрос разрешения на уведомления</h1>
+    <!-- Здесь может быть дополнительный контент или инструкции для пользователя -->
+</body>
+</html>
